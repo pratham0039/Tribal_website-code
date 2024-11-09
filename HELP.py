@@ -1,26 +1,36 @@
 import os
 
-folder_path = 'images/reasi/TRIBAL HOUSEHOLD'  # Replace with the actual path to your folder
+# Specify the folder path
+folder_path = 'images/rajouri'  # Replace with your folder path
 
-# Check if the folder exists
-if os.path.exists(folder_path):
-    # Get a list of all files in the folder
-    file_names = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
+# List of supported image file extensions
+image_extensions = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp')
 
-    # Print the file names
-    for file_name in file_names:
-        print(f''' 
-                                                              <li class="col-xs-6 col-sm-4 col-md-3" data-responsive='images/reasi/TRIBAL HOUSEHOLD/{file_name}' data-src='images/reasi/TRIBAL HOUSEHOLD/{file_name}'
-                        data-sub-html='<b>Place: </b>Reasi
+# Create a list to store image filenames
+image_files = []
+
+# Loop through all files in the directory
+for filename in os.listdir(folder_path):
+    # Check if the file is an image by checking its extension
+    if filename.lower().endswith(image_extensions):
+        # Append the full path of the image file
+        image_files.append(filename)
+
+# Open a file to write the HTML output
+with open('image_list.html', 'w') as file:
+    # Write the list of image filenames as HTML
+    for image in image_files:
+        file.write(f'''
+  <li class="col-xs-6 col-sm-4 col-md-3" data-responsive='images/rajouri/{image}' data-src='images/rajouri/{image}'
+                        data-sub-html='<b>Place: </b>Rajouri
 '><a href="">
-                            <img class="img-responsive img-thumbnail" style="padding: 1px" src='images/reasi/TRIBAL HOUSEHOLD/{file_name}' height="150px" width="360px" />
+                            <img class="img-responsive img-thumbnail" style="padding: 1px" src='images/rajouri/{image}' height="150px" width="360px" />
                            </a>
-                        <h5 class="img-responsive" style="display: ruby-text-group; font-size: .70em; width: 80%; height: 15px; margin-top: 0.85em; margin-bottom: .67em; color: white; margin-left: 0; margin-right: 0;">Reasi</h5>
-                        
+                        <h5 class="img-responsive" style="display: ruby-text-group; font-size: .70em; width: 80%; height: 15px; margin-top: 0.85em; margin-bottom: .67em; color: white; margin-left: 0; margin-right: 0;">Rajouri</h5>
+
                         <div style="height: 20px"></div>
                     </li>
-              
-              
-              
-              
-              ''')
+
+''')
+
+print("HTML list of images has been saved to 'image_list.html'")
